@@ -23,7 +23,7 @@ function hikAlerts (log, config) {
     const streamOptions = {
         host: config.nvr_host,
         path: '/ISAPI/Event/notification/alertStream',
-        port: 80,
+        port: config.camera_ffmpeg_port,
         method: 'GET',
         headers: {'Authorization':authIn}
     };

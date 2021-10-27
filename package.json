@@ -4,8 +4,8 @@
   "description": "Homebridge plugin for a hikvision alerts",
   "main": "index.js",
   "dependencies": {
-    "request": ">=2.88.0",
-    "ip": ">=1.1.5"
+    "node-xml-stream": ">=1.0.0",
+    "jsdom": ">=18.0.0"
   },
   "engines": {
     "homebridge": ">=0.4.50",
