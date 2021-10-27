@@ -1,0 +1,30 @@
+{
+  "name": "homebridge-hik-alerts",
+  "version": "1.0.0",
+  "description": "Homebridge plugin for a hikvision alerts",
+  "main": "index.js",
+  "dependencies": {
+    "request": ">=2.88.0",
+    "ip": ">=1.1.5"
+  },
+  "engines": {
+    "homebridge": ">=0.4.50",
+    "node": ">=12.13.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mideko/homebridge-hik-alerts.git"
+  },
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "author": "Michiel de Koning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mideko/homebridge-hik-alerts/issues"
+  },
+  "homepage": "https://github.com/mideko/homebridge-hik-alerts#readme"
+}
