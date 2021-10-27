@@ -4,20 +4,20 @@
 
 <span align="center">
 
-# homebridge-web-thermostat
+# homebridge-hik-alerts
 
-[![npm](https://img.shields.io/npm/v/homebridge-web-thermostat.svg)](https://www.npmjs.com/package/homebridge-web-thermostat) [![npm](https://img.shields.io/npm/dt/homebridge-web-thermostat.svg)](https://www.npmjs.com/package/homebridge-web-thermostat)
+[![npm](https://img.shields.io/npm/v/homebridge-hik-alerts.svg)](https://www.npmjs.com/package/homebridge-hik-alerts) [![npm](https://img.shields.io/npm/dt/homebridge-hik-alerts.svg)](https://www.npmjs.com/package/homebridge-hik-alerts)
 
 </span>
 
 ## Description
 
-This [homebridge](https://github.com/homebridge/homebridge) plugin exposes a web-based thermostat to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to set the thermostat mode and control the target temperature.
+This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the hikvision NVR alerts to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to set the camera sensor triggers in camera ffmpeg.
 
 ## Installation
 
 1. Install [homebridge](https://github.com/homebridge/homebridge#installation)
-2. Install this plugin: `npm install -g homebridge-web-thermostat`
+2. Install this plugin: `npm install -g homebridge-hik-alerts`
 3. Update your `config.json` file
 
 ## Configuration
