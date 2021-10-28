@@ -27,7 +27,9 @@ You must have set the <b>Http Port</b> in the <b>Global Automation</b> section t
 
 For each camera in Camera FFMpeg plug, also switch on the <em>Enable Motion Sensor</em> and <em>Enable Dummy Switches</em>.
 
-In the NVR, make sure the <b>WEB Authentication</b> (under Security | Authentication) is set to <em>digest/basic</em> to allow this plug-in to connect.
+In the NVR, make sure:
+- the <b>WEB Authentication</b> (under Security | Authentication) is set to <em>digest/basic</em> to allow this plug-in to connect,
+- the events <b>Linkage method</b> includes <em>Notify Surveillance Centre</em> to push the events to the NVR's AlertStream 
 
 ## Configuration
 
@@ -62,10 +64,10 @@ In the NVR, make sure the <b>WEB Authentication</b> (under Security | Authentica
 | `sensors` | must correspond with the cameras list in camera ffmpeg plugin*  | N/A |
 
 Important: for the sensors, make sure that 
- - the <b>names</b> of the camera's are identical (towards Camera FFmpeg, cameras are matched by the name) and 
+ - the <b>names</b> of the sensors (=cameras) are identical to those in Camera FFmpeg (towards Camera FFmpeg, cameras are matched by the name) and 
  - the <b>order</b> corresponds with the order in which the cameras are defined in the NVR (towards the NVR, cameras are matched by their sequence nr.).
  
- ## Configuration in Homekit
+ ### Configuration in Homekit
  After setting this up in Homebridge, you need to configure the following in <b>Homekit</b>:
  - create an <em>automation</em> for each sensor/camera pair ('when motion is detetected, turn on the Camera Motion Trigger'),
  - switch on <em>Activity Notifications</em> for each camera (to get a notification when motion is detected).
