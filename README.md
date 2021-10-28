@@ -20,12 +20,14 @@ This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the h
 2. Install this plugin: `npm install -g homebridge-hik-alerts`
 3. Update your `config.json` file (see below)
 
-## Dependency
+## Dependencies
 
 This plugin feed the alerts into the [Camera FFMpeg plugin](https://github.com/Sunoo/homebridge-camera-ffmpeg#readme).
-You must have set the Http Port in the Global Automation section to enable this.
+You must have set the <b>Http Port</b> in the <b>Global Automation</b> section to enable this.
 Important: Make sure that the names of the camera's are identical and that the order corresponds with the order in which the cameras are defined in the NVR.
-For each camera in Camera FFMpeg plug, also switch on the <em>Enable Motion Sensor</em> and <em>Enable Dummy Switches</em>
+For each camera in Camera FFMpeg plug, also switch on the <em>Enable Motion Sensor</em> and <em>Enable Dummy Switches</em>.
+
+In the NVR, make sure the <b>WEB Authentication</b> (under Security | Authentication) is set to <em>digest/basic</em> to allow this plug-in to connect.
 
 ## Configuration
 
