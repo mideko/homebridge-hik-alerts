@@ -61,6 +61,6 @@ In the NVR, make sure the <b>WEB Authentication</b> (under Security | Authentica
 | `camera_ffmpeg_porthttp` | port you defined in the camera ffmpeg config  | N/A |
 | `sensors` | must correspond with the cameras list in camera ffmpeg plugin*  | N/A |
 
-* Important: for the sensors, make sure that 
+Important: for the sensors, make sure that 
  - the <b>names</b> of the camera's are identical (towards Camera FFmpeg, cameras are matched by the name) and 
  - the <b>order</b> corresponds with the order in which the cameras are defined in the NVR (towards the NVR, cameras are matched by their sequence nr.).
