@@ -65,7 +65,9 @@ Important: for the sensors, make sure that
  - the <b>names</b> of the camera's are identical (towards Camera FFmpeg, cameras are matched by the name) and 
  - the <b>order</b> corresponds with the order in which the cameras are defined in the NVR (towards the NVR, cameras are matched by their sequence nr.).
  
- ## Configuration Homekit
+ ## Configuration in Homekit
  After setting this up in Homebridge, you need to configure the following in <b>Homekit</b>:
- - create an <em>automation</em> for each sensor/camera pair.
- - switch on Notification for each camer
+ - create an <em>automation</em> for each sensor/camera pair ('when motion is detetected, turn on the Camera Motion Trigger'),
+ - switch on <em>Activity Notifications</em> for each camera (to get a notification when motion is detected).
+ This works best if each camera/sensor pair is in a separate room.
+
