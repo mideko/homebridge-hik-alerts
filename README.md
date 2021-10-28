@@ -24,7 +24,7 @@ This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the h
 
 This plugin feed the alerts into the [Camera FFMpeg plugin](https://github.com/Sunoo/homebridge-camera-ffmpeg#readme).
 You must have set the <b>Http Port</b> in the <b>Global Automation</b> section to enable this.
-Important: Make sure that the names of the camera's are identical and that the order corresponds with the order in which the cameras are defined in the NVR.
+
 For each camera in Camera FFMpeg plug, also switch on the <em>Enable Motion Sensor</em> and <em>Enable Dummy Switches</em>.
 
 In the NVR, make sure the <b>WEB Authentication</b> (under Security | Authentication) is set to <em>digest/basic</em> to allow this plug-in to connect.
@@ -60,3 +60,7 @@ In the NVR, make sure the <b>WEB Authentication</b> (under Security | Authentica
 | `password` | your password to log into the NVR  | N/A |
 | `camera_ffmpeg_porthttp` | port you defined in the camera ffmpeg config  | N/A |
 | `sensors` | must correspond with the cameras list in camera ffmpeg plugin  | N/A |
+
+Important: for the sensors, make sure that 
+ - the names of the camera's are identical (towards Camera FFmpeg, cameras are matched by the name) and 
+ - the order corresponds with the order in which the cameras are defined in the NVR (towards the NVR, cameras are matched by their sequence nr.).
