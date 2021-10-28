@@ -12,13 +12,20 @@
 
 ## Description
 
-This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the hikvision NVR alerts to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to set the camera sensor triggers in camera ffmpeg.
+This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the hikvision NVR alerts to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to trigger the camera sensor switches in camera ffmpeg.
 
 ## Installation
 
 1. Install [homebridge](https://github.com/homebridge/homebridge#installation)
 2. Install this plugin: `npm install -g homebridge-hik-alerts`
-3. Update your `config.json` file
+3. Update your `config.json` file (see below)
+
+## Dependency
+
+This plugin feed the alerts into the [Camera FFMpeg plugin](https://github.com/Sunoo/homebridge-camera-ffmpeg#readme).
+You must have set the Http Port in the Global Automation section to enable this.
+Important: Make sure that the names of the camera's are identical and that the order corresponds with the order in which the cameras are defined in the NVR.
+For each camera in Camera FFMpeg plug, also switch on the <em>Enable Motion Sensor</em> and <em>Enable Dummy Switches</em>
 
 ## Configuration
 
@@ -44,10 +51,10 @@ This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the h
 ### Core
 | Key | Description | Default |
 | --- | --- | --- |
-| `accessory` | Must be `Hikvision Alerts` | N/A |
+| `accessory` | Must be `Hik Alerts` | N/A |
 | `name` | Name to appear in the Home app | N/A |
 | `nvr_host` | Root URL of your Hikvision NVR | N/A |
 | `user_name` | your user name to log into the NVR  | N/A |
 | `password` | your password to log into the NVR  | N/A |
 | `camera_ffmpeg_porthttp` | port you defined in the camera ffmpeg config  | N/A |
-| `sensors` | must correspond to the camera list in camera ffmpeg plugin  | N/A |
+| `sensors` | must correspond with the cameras list in camera ffmpeg plugin  | N/A |
