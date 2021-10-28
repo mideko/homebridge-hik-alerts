@@ -12,7 +12,7 @@
 
 ## Description
 
-This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the hikvision NVR alerts to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to trigger the camera sensor switches in camera ffmpeg.
+This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the [Hikvision(R)](https://www.hikvision.com) NVR alerts to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin triggers the camera sensor switches in camera ffmpeg.
 
 ## Installation
 
@@ -64,3 +64,8 @@ In the NVR, make sure the <b>WEB Authentication</b> (under Security | Authentica
 Important: for the sensors, make sure that 
  - the <b>names</b> of the camera's are identical (towards Camera FFmpeg, cameras are matched by the name) and 
  - the <b>order</b> corresponds with the order in which the cameras are defined in the NVR (towards the NVR, cameras are matched by their sequence nr.).
+ 
+ ## Configuration Homekit
+ After setting this up in Homebridge, you need to configure the following in <b>Homekit</b>:
+ - create an <em>automation</em> for each sensor/camera pair.
+ - switch on Notification for each camer

@@ -44,7 +44,7 @@ constructor(log, config, api) {
     
     //this.sensors=['keep empty','Cam%20Voortuin','Cam%20Tuinpad','Cam%20Hoek','Cam%20Oprit','Cam%20Test'];
     hikNvrSensors = config['sensors'];
-    this.log("HikAlerts Initalized");
+    this.log("HikAlerts Initalized for ",hikNvrSensors );
     this.service = new Service.Switch(this.config.name);
 
 }
@@ -130,7 +130,7 @@ nvrcallback (response) {
         hikNvrXmlStart = chunk.search('<EventNotificationAlert');
         if (hikNvrXmlStart > 0 ) {
             chunk = chunk.slice(hikNvrXmlStart); //strip any non-xml prefix
-            hikNvrLog(chunk);
+            //hikNvrLog(chunk);
             hikNvrCamID = 0;
             //turn chunk into xml doc that can be queried
             const hikNvrXmlDoc = new jsdom.JSDOM(chunk,{contentType:"application/xml"});
@@ -157,12 +157,12 @@ nvrcallback (response) {
                       fire.abort();
                     });
                     //fire.end();
-                    
+                    hikNvrLog(hikNvrStamp,hikNvrSensor,hikNvrEvent,hikNvrState);
                 }
                
             }
             hikNvrXmlDoc.window.close();
-            hikNvrLog(hikNvrStamp,hikNvrSensor,hikNvrEvent,hikNvrState);
+            
         }
     });
     response.on('end',function() {
