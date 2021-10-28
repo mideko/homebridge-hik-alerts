@@ -13,6 +13,8 @@
 ## Description
 
 This [homebridge](https://github.com/homebridge/homebridge) plugin exposes the [Hikvision(R)](https://www.hikvision.com) NVR alerts to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin triggers the camera sensor switches in camera ffmpeg.
+### Platform
+Tested on IOS 15.
 
 ## Installation
 
