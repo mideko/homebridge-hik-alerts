@@ -1,82 +1,175 @@
-var Service, Characteristic
-const packageJson = require('./package.json')
+let Service, Characteristic;
+const packageJson = require('./package.json');
 const node_xml_stream = require('node-xml-stream');
 const http = require('http');
 const jsdom = require("jsdom");
+//const {JSDOM} = jsdom;
+let hikNvrLog, hikNvrCamID, hikNvrAlert, hikNvrEvent, hikNvrState, hikNvrStamp, hikNvrSensor, hikNvrXmlDoc,hikNvrXmlStart;
+let hikNvrSensors = [];
+let hikNvrCameraFFmpegPort;
 
 module.exports = function (homebridge) {
-  Service = homebridge.hap.Service
-  Characteristic = homebridge.hap.Characteristic
-  homebridge.registerAccessory('homebridge-hik-alerts', 'Hikvision Alerts', hikAlerts)
+  Service = homebridge.hap.Service;
+  Characteristic = homebridge.hap.Characteristic;
+  homebridge.registerAccessory('homebridge-hik-alerts', 'Hikvision Alerts', hikAlerts);
 }
 
-function hikAlerts (log, config) {
+class hikAlerts {
+constructor(log, config, api) {
+    
+    
     this.log = log;
+    hikNvrLog = log;
+    //get config settings
+    this.config = config;
     this.name = config.name;
-    this.username = config.username;
+    this.username = config.user_name;
     this.password = config.password;
+    this.nvr =config.nvr_host;
+    this.nvrport =config.nvr_port;
+    this.isOn = true;
+    hikNvrCameraFFmpegPort = config.camera_ffmpeg_porthttp;
     if (this.username && this.password) {
       this.auth = this.username+":"+this.password;
       }
-    
     this.authIn = 'Basic ' + Buffer.from(this.auth).toString('base64');
-    const streamOptions = {
-        host: config.nvr_host,
+    //option for alertStream from the NVR
+    this.streamOptions = {
+        host: this.nvr,
         path: '/ISAPI/Event/notification/alertStream',
-        port: config.camera_ffmpeg_port,
+        port: this.nvrport,
         method: 'GET',
-        headers: {'Authorization':authIn}
+        headers: {'Authorization':this.authIn}
     };
     
-    this.channelID = 0;
-    this.sensors=['keep empty','Cam%20Voortuin','Cam%20Tuinpad','Cam%20Hoek','Cam%20Oprit','Cam%20Test'];
+    //this.sensors=['keep empty','Cam%20Voortuin','Cam%20Tuinpad','Cam%20Hoek','Cam%20Oprit','Cam%20Test'];
+    hikNvrSensors = config['sensors'];
+    this.log("HikAlerts Initalized");
+    this.service = new Service.Switch(this.config.name);
 
-    callback = function(response) {
-        response.setEncoding('utf8');
-        response.on('data',function(chunk) {
-            //console.log(chunk);
-            myID = 0;
-            var xmlDoc = new jsdom.JSDOM(chunk);
-            myAlert =xmlDoc.window.document.querySelector('EventNotificationAlert');
-            mySensor = '';
-            myEvent = '';
-            if (myAlert) {
-                myState =xmlDoc.window.document.querySelector('eventState').textContent;
-                myStamp =xmlDoc.window.document.querySelector('dateTime').textContent;
-                if (myState == 'active') {
-                    myEvent =xmlDoc.window.document.querySelector('eventType').textContent;
+}
+
+getServices() {
+    const informationService = new Service.AccessoryInformation();
+
+    // Set plugin information
+    informationService
+        .setCharacteristic(Characteristic.Manufacturer, 'mdk')
+        .setCharacteristic(Characteristic.Model, 'Hik Camera Sensors')
+        .setCharacteristic(Characteristic.SerialNumber, 'Version ' + module.exports.version)
+    
+    this.service.getCharacteristic(Characteristic.On)
+      .on('get', this.getOnCharacteristicHandler.bind(this))
+      .on('set', this.setOnCharacteristicHandler.bind(this))
+
+    return [informationService, this.service];
+}
+    
+setOnCharacteristicHandler (value, callback) {
+    /* this is called when HomeKit wants to update the value of the characteristic as defined in our getServices() function */
+
+    this.isOn = value;
+
+      /* Log to the console the value whenever this function is called */
+    //this.log(`calling setOnCharacteristicHandler`, value);
+    if (this.isOn) {
+        this.log('Hik Alerts is switched on');
+    //open the alert stream from the NVR
+        this.req = http.request(this.streamOptions, this.nvrcallback);
+        this.req.on('error', (e) => {
+            this.log('there is problem with the NVR stream request',e);
+            this.req.abort();
+            });
+        this.req.end();
+    }
+    else {
+        this.req.abort();
+        this.log('Hik Alerts is switched off');
+    }
+      /*
+       * The callback function should be called to return the value
+       * The first argument in the function should be null unless and error occured
+       */
+    callback(null);
+    }
+    
+getOnCharacteristicHandler (callback) {
+    /*
+    * this is called when HomeKit wants to retrieve the current state of the characteristic as defined in our getServices() function
+    * it's called each time you open the Home app or when you open control center
+    */
+
+      /* Log to the console the value whenever this function is called */
+    //this.log(`calling getOnCharacteristicHandler`, this.isOn)
+    if (this.isOn) {
+    //open the alert stream from the NVR
+        this.req = http.request(this.streamOptions, this.nvrcallback);
+        this.req.on('error', (e) => {
+            this.log('there is problem with the NVR stream request',e);
+            this.req.abort();
+            });
+        this.req.end();
+    }
+    else {
+        this.log('Hik Alerts is switched off');
+    }
+
+      /*
+       * The callback function should be called to return the value
+       * The first argument in the function should be null unless and error occured
+       * The second argument in the function should be the current value of the characteristic
+       * This is just an example so we will return the value from `this.isOn` which is where we stored the value in the set handler
+       */
+    callback(null, this.isOn)
+    }
+    
+nvrcallback (response) {
+    response.setEncoding('utf8');
+    response.on('data',function(chunk) {
+        //hikNvrLog('handling nvr response');
+        hikNvrXmlStart = chunk.search('<EventNotificationAlert');
+        if (hikNvrXmlStart > 0 ) {
+            chunk = chunk.slice(hikNvrXmlStart); //strip any non-xml prefix
+            hikNvrLog(chunk);
+            hikNvrCamID = 0;
+            //turn chunk into xml doc that can be queried
+            const hikNvrXmlDoc = new jsdom.JSDOM(chunk,{contentType:"application/xml"});
+            hikNvrAlert = hikNvrXmlDoc.window.document.querySelector('EventNotificationAlert');
+            hikNvrSensor = '';
+            hikNvrEvent = '';
+            //hikNvrLog(myAlert);
+            if (hikNvrAlert) {
+                hikNvrState =hikNvrXmlDoc.window.document.querySelector('eventState').textContent;
+                hikNvrStamp =hikNvrXmlDoc.window.document.querySelector('dateTime').textContent;
+                if (hikNvrState == 'active') {
+                    hikNvrEvent =hikNvrXmlDoc.window.document.querySelector('eventType').textContent;
                     
-                    myID = parseInt(xmlDoc.window.document.querySelector('dynChannelID').textContent);
-                    mySensor = this.sensors[myID];
-                    camAlertOptions.path = '/motion?' + mySensor;
-                    //var fire = http.request(camAlertOptions);
-                    var fire = http.get('http://localhost:8800/motion?'+mySensor)
-                    //console.log(camAlertOptions);
+                    hikNvrCamID = parseInt(hikNvrXmlDoc.window.document.querySelector('dynChannelID').textContent)-1;
+                    hikNvrSensor = hikNvrSensors[hikNvrCamID];
+                    //trigger related motion switch in camera ffmpeg module
+                    var fire = http.get('http://localhost:'+hikNvrCameraFFmpegPort+'/motion?'+hikNvrSensor);
+
                     fire.on('response', (i) => {
                       //console.log(i);
                     });
                     fire.on('error', (e) => {
-                      console.log('problem with setting trigger via http:', e);
+                      //this.log('Hik-alerts: problem with setting trigger via http:'+ e);
                       fire.abort();
                     });
                     //fire.end();
+                    
                 }
-                console.log(myStamp,mySensor, myEvent, myState);
+               
             }
-        });
-        response.on('end',function() {
-            console.log('end');
-        });
-    }
-    //get the alert stream from the NVR
-    var req = http.request(streamOptions, callback);
-
-    req.on('error', (e) => {
-      console.log('problem with request', e);
-      req.abort();
+            hikNvrXmlDoc.window.close();
+            hikNvrLog(hikNvrStamp,hikNvrSensor,hikNvrEvent,hikNvrState);
+        }
     });
-    //req.pipe(parser);
-
-    req.end();
+    response.on('end',function() {
+        //this.log('nvr stream ended');
+        });
 }
+    
+} //class
+
 
