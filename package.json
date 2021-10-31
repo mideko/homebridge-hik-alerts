@@ -1,5 +1,6 @@
 {
   "name": "homebridge-hik-alerts",
+  "displayName": "Hik Alerts",
   "version": "1.0.0",
   "description": "Homebridge plugin for a hikvision alerts",
   "main": "index.js",
