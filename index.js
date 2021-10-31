@@ -142,7 +142,7 @@ nvrcallback (response) {
                 hikNvrState =hikNvrXmlDoc.window.document.querySelector('eventState').textContent;
                 hikNvrStamp =hikNvrXmlDoc.window.document.querySelector('dateTime').textContent;
                 if (hikNvrState == 'active') {
-                    hikNvrEvent =hikNvrXmlDoc.window.document.querySelector('eventType').textContent;
+                    hikNvrEvent = hikNvrXmlDoc.window.document.querySelector('eventType').textContent;
                     
                     hikNvrCamID = parseInt(hikNvrXmlDoc.window.document.querySelector('dynChannelID').textContent)-1;
                     hikNvrSensor = hikNvrSensors[hikNvrCamID];
@@ -150,10 +150,10 @@ nvrcallback (response) {
                     var fire = http.get('http://localhost:'+hikNvrCameraFFmpegPort+'/motion?'+hikNvrSensor);
 
                     fire.on('response', (i) => {
-                      //console.log(i);
+                      //this.log(i);
                     });
                     fire.on('error', (e) => {
-                      //this.log('Hik-alerts: problem with setting trigger via http:'+ e);
+                      //this.log('problem with setting trigger via http: ', e);
                       fire.abort();
                     });
                     //fire.end();

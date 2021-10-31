@@ -4,8 +4,8 @@
   "description": "Homebridge plugin for a hikvision alerts",
   "main": "index.js",
   "dependencies": {
-    "node-xml-stream": ">=1.0.0",
-    "jsdom": ">=18.0.0"
+    "jsdom": ">=18.0.0",
+    "node-xml-stream": ">=1.0.0"
   },
   "engines": {
     "homebridge": ">=0.4.50",
@@ -19,7 +19,7 @@
     "url": "git://github.com/mideko/homebridge-hik-alerts.git"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "homebridge-plugin"
