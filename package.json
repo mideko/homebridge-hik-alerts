@@ -6,7 +6,8 @@
   "main": "index.js",
   "dependencies": {
     "jsdom": ">=18.0.0",
-    "node-xml-stream": ">=1.0.0"
+    "node-xml-stream": ">=1.0.0",
+    "np": "^7.5.0"
   },
   "engines": {
     "homebridge": ">=0.4.50",
@@ -17,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mideko/homebridge-hik-alerts.git"
+    "url": "https://github.com/mideko/homebridge-hik-alerts.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
