@@ -75,3 +75,6 @@ Important: for the sensors, make sure that
  - switch on <em>Activity Notifications</em> for each camera (to get a notification when motion is detected).
  This works best if each camera/sensor pair is in a separate room.
 
+## Known Issues
+Color wheels are notiously tricky (due to different color mappings) so still need some work
+
