@@ -24,10 +24,11 @@ Tested on IOS 15.
 
 ## Dependencies
 
-This plugin feed the alerts into the [Camera FFMpeg plugin](https://github.com/Sunoo/homebridge-camera-ffmpeg#readme).
+This plugin feeds the alerts into the [Camera FFMpeg plugin](https://github.com/Sunoo/homebridge-camera-ffmpeg#readme).
 You must have set the <b>Http Port</b> in the <b>Global Automation</b> section to enable this.
 
 For each camera in Camera FFMpeg plug, also switch on the <em>Enable Motion Sensor</em> and <em>Enable Dummy Switches</em>.
+This also works with the CameraUI plugin.
 
 In the NVR, make sure:
 - the <b>WEB Authentication</b> (under Security | Authentication) is set to <em>digest/basic</em> to allow this plug-in to connect,
@@ -75,6 +76,5 @@ Important: for the sensors, make sure that
  - switch on <em>Activity Notifications</em> for each camera (to get a notification when motion is detected).
  This works best if each camera/sensor pair is in a separate room.
 
-## Known Issues
-Color wheels are notiously tricky (due to different color mappings) so still need some work
+
 
