@@ -1,0 +1,47 @@
+{
+  "pluginAlias": "Hik-Alerts",
+  "pluginType": "accessory",
+  "singular": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "nvr_host": {
+        "title": "The IP address of your HikVision NVR",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      "nvr_port": {
+        "title": "The port number of your HikVision NVR",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      "camera_ffmpeg_porthttp": {
+        "title": "The port number used by your ffmpeg plugin",
+        "type": "number",
+        "required": true,
+        "default": ""
+      },
+      "user_name": {
+        "title": "The login name of your NVR HikVision account",
+        "type": "string",
+        "required": true,
+        "default": "admin"
+      },
+      "password": {
+        "title": "The password of your HikVision NVR account",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "format": "password"
+      },
+      "sensors": {
+        "title": "A list of camera names as specified in the FFMPEG plugin",
+        "type": "string",
+        "required": true,
+        "description" : "a comma separated list"
+      }
+    }
+  }
+}
