@@ -58,7 +58,7 @@ In the NVR, make sure:
 ### Core
 | Key | Description | Default |
 | --- | --- | --- |
-| `accessory` | Must be `Hik Alerts` | N/A |
+| `accessory` | Must be `Hikvision Alerts` | N/A |
 | `name` | Name to appear in the Home app | N/A |
 | `nvr_host` | Root URL of your Hikvision NVR | N/A |
 | `user_name` | your user name to log into the NVR  | N/A |
