@@ -39,7 +39,7 @@ In the NVR, make sure:
 ```json
 "accessories": [
     {
-        "name": "Hik Alerts",
+        "name": "Hikvision alerts",
         "accessory": "Hikvision Alerts",
         "nvr_host": "0.0.0.0",
         "camera_ffmpeg_porthttp": "8800",
